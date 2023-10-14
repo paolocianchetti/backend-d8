@@ -1,0 +1,89 @@
+####
+GET http://localhost:5050/blogPosts
+
+####
+GET http://localhost:5050/blogPosts/652a5509596c6e81740f68b0/comments
+
+####
+GET http://localhost:5050/blogPosts/652a5509596c6e81740f68b0/comments/652a55c7596c6e81740f68b4
+
+####
+POST http://localhost:5050/blogPosts HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "Eras Tour - Taylor Swift",
+    "category": "Musica/Cinema",
+    "cover": "locandina evento",
+    "readTime": {
+        "value": 3,
+        "unit": "min"
+    },
+    "author": {
+        "name": "Taylor",
+        "avatar": "Una bella ragazza"
+    },
+    "content": "Nei cinema italiani esce Eras Tour in concerto..."
+}
+
+####
+POST http://localhost:5050/blogPosts/652a5391155112ee35c053e7 HTTP/1.1
+Content-Type: application/json
+
+{
+   "review": "Non è il mio genere di film, però...",
+    "rate": 6
+}
+
+####
+PATCH http://localhost:5050/blogPosts/6521115842a1cf75b1859443 HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "Eventi fine settimana Roma",
+    "category": "Week End"
+}
+
+####
+PATCH http://localhost:5050/blogPosts/652a556a596c6e81740f68b2/comment/652a5620596c6e81740f68b9 HTTP/1.1
+Content-Type: application/json
+
+{
+    "review": "Concertone, ma durata troppo lunga per i miei gusti...",
+    "rate": 8
+}
+
+####
+DELETE http://localhost:5050/blogPosts/6521124242a1cf75b1859445
+
+####
+GET http://localhost:5050/comments
+
+####
+GET http://localhost:5050/comments/commentID
+
+####
+POST http://localhost:5050/comments/create HTTP/1.1
+Content-Type: application/json
+
+{
+    "review": "Bellissimo e bravissima pure lei!",
+    "rate": 10,
+    "post": "652a556a596c6e81740f68b2"
+}
+
+####
+PATCH http://localhost:5050/comments/update/commentID
+Content-Type: application/json
+
+{
+    "review": "Brutto",
+    "rate": 2
+}
+
+####
+DELETE http://localhost:5050/comments/delete/commentId
+
+####
+DELETE http://localhost:5050/blogPosts/652a5391155112ee35c053e7/comment/652a9f3baaf6ecba6ff1ed79
+

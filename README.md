@@ -1,51 +1,14 @@
-# Il nostro primo API - Strive Blog - Capitolo 2
+# Il nostro primo API - Strive Blog - Capitolo 4
 
-- Se non lo hai fatto, implementa le funzionalità di PUT e DELETE per gli autori
+Aggiungiamo al nostro backend la possibilità di aggiungere commenti agli articoli.
+Implementa gli endpoint specificati di seguito:
 
-- Sviluppa le operazioni CRUD per i blog post
+- GET/blogPosts/:id/comments => ritorna tutti i commenti di uno specifico post
 
-- La persistenza dei dati dev'essere garantita dall'uso di MongoDB
+- GET/blogPosts/:id/comments/:commentId => ritorna un commento specifico di un post specifico
 
-- Le query e i body dovranno essere validati
+- POST/blogPosts/:id => aggiungi un nuovo commento ad un post specifico
 
-- Ricorda di installare il pacchetto [cors] con 'npm i cors', e di usarlo con 'server.use(cors())' se vuoi collegare il backend al frontend
+- PUT/blogPosts/:id/comment/:commentId => cambia un commento di un post specifico
 
-# Strive Blog - Struttura BLOG POST
-
-    _id                         // generato dal server
-    category                    // categoria del post
-    title                       // titolo del post
-    cover                       // link dell'immagine
-    readTime: {
-        value                   // numero
-        unit                    // unità di misura
-    },
-    author: {
-        name                    // nome dell'autore
-        avatar                  // immagine dell'autore
-    },
-    content                     // HTML dell'articolo
-
-# Strive Blog - Rotte
-
-- GET/blogPosts => ritorna una lista di blog post
-
-- GET/blogPosts/123 => ritorna un singolo blog post
-
-- POST/blogPosts => crea un nuovo blog post
-
-- PUT/blogPosts/123 => modifica il blog post con l'id associato
-
-- DELETE/blogPosts/123 => cancella il blog post con l'id associato
-
-# EXTRA (facoltativi, per ora)
-
-- Fare la POST di un articolo dal form di aggiunta articolo
-
-- Fare la fetch degli articoli presenti nel database e visualizzarli nella homepage
-
-- GET/authors/:id/blogPosts/ => ricevi tutti i blog post di uno specifico autore dal corrispondente ID
-
-- GET/blogPOsts?title=whatever => filtra i blog post e ricevi l'unico che corrisponda alla condizione di ricerca (esempio: il titolo contiene "whatever")
-
-- Aggiungi la funzionalità di ricerca dei post nel frontend
+- DELETE/blogPosts/:id/comment/:commentId => elimina un commento specifico da un post specifico
