@@ -4,6 +4,7 @@ const logger = require('./middlewares/logger')
 const authorsRoute = require('./routes/authors')
 const blogPostsRoute = require('./routes/blogPosts')
 const commentsRoute = require('./routes/comments')
+const path = require('path')
 const cors = require('cors')
 require('dotenv').config()
 
@@ -13,6 +14,9 @@ const app = express();
 
 // middleware cors
 app.use(cors())
+
+// middleware path
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 // middleware parser json
 app.use(express.json())

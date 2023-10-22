@@ -1,14 +1,12 @@
-# Il nostro primo API - Strive Blog - Capitolo 4
+# Il nostro primo API - Strive Blog - Capitolo 5
 
-Aggiungiamo al nostro backend la possibilità di aggiungere commenti agli articoli.
-Implementa gli endpoint specificati di seguito:
+Il backend include queste nuove routes:
 
-- GET/blogPosts/:id/comments => ritorna tutti i commenti di uno specifico post
+- PATCH /authors/:authorId/avatar, carica un'immagine per l'autore specificato e salva
+  l'URL creata da Cloudinary nel database
 
-- GET/blogPosts/:id/comments/:commentId => ritorna un commento specifico di un post specifico
+- PATCH /blogPosts/:blogPostId/cover, carica un'immagine per il post specificato dall'Id.
+  Salva l'URL creato da Cloudinary nel post corrispondente
 
-- POST/blogPosts/:id => aggiungi un nuovo commento ad un post specifico
-
-- PUT/blogPosts/:id/comment/:commentId => cambia un commento di un post specifico
-
-- DELETE/blogPosts/:id/comment/:commentId => elimina un commento specifico da un post specifico
+- EXTRA: Invia e-mail all'autore quando pubblica un nuovo BlogPost e quando un nuovo
+  autore si registra sulla piattaforma

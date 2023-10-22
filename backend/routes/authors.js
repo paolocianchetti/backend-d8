@@ -115,6 +115,41 @@ authors.patch('/authors/:id', async (request, response) => {
     }
 })
 
+authors.patch('/authors/:id/avatar', async (request, response) => {
+    const { id } = request.params
+    const authorExist = await AuthorModel.findById(id)
+
+    if (!authorExist) {
+        return response
+            .status(404)
+            .send({
+                statusCode: 404,
+                message: "Autore del post non esistente!"
+            })
+    }
+
+    try {
+        const dataToUpdate = request.body
+        const options = { new: true }
+        const result = await AuthorModel.findByIdAndUpdate(id, dataToUpdate, options)
+
+        response
+            .status(200)
+            .send({
+                statusCode: 200,
+                message: "Autore del post modificato con successo!",
+                result
+            })
+    } catch (error) {
+        response
+            .status(500)
+            .send({
+                statusCode: 500,
+                message: "Errore interno del server"
+            })
+    }
+})
+
 authors.delete('/authors/:id', async (request, response) => {
     const { id } = request.params
 

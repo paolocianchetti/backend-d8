@@ -1,8 +1,139 @@
 const express = require('express')
+const multer = require('multer')
+const cloudinary = require('cloudinary').v2
+const { CloudinaryStorage } = require('multer-storage-cloudinary')
 const PostModel = require('../models/post')
 const CommentModel = require('../models/comment')
-const validatePost = require('../middlewares/validatePost')
 const blogPosts = express.Router()
+const validatePost = require('../middlewares/validatePost')
+const crypto = require('crypto')  // genera Id casuali
+require('dotenv').config()
+
+// configurazione base di cloudinary
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+})
+
+// configurazione per la gestione dei files nel Cloud
+const cloudStorage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'avatar',
+        format: async (req, file) => 'png',
+        public_id: (req, file) => file.name
+    }
+})
+
+// creaimo una costante per lo storage dei dati in una cartalla locale del server
+const internalStorage = multer.diskStorage({
+   destination: (request, file, cb ) => {
+    cb(null, './uploads')  // posizione in cui salvare i files
+   },
+   // rendiamo i files univoci attraverso un suffisso
+   filename: (request, file, cb) => {
+    const fileSuffix = `${crypto.randomUUID()}_${Date.now()}`
+    // recuperiamo solo l'estensione del file
+    const fileExt = file.originalname.split('.').pop()
+    // invochiamo la callback con il file univoco con l'estensione
+    cb(null, `${file.fieldname}_${fileSuffix}.${fileExt}`)
+   }
+})
+
+// middleware upload per internalStorage
+const upload = multer({ storage: internalStorage })
+
+// middleware cloudUpload per cloudStorage
+const cloudUpload = multer({ storage: cloudStorage })
+
+blogPosts.patch('/blogPosts/:id/cover', cloudUpload.single('cover'), async (request, response) => {
+    const { id } = request.params  // id del post specifico
+
+    // controlliamo se esite
+    const postExist = await PostModel.findById(id)
+
+    if (!postExist) {
+        return response
+            .status(404)
+            .send({
+                statusCode: 404,
+                message: "Il post cercato non esiste!"
+            })
+    }
+
+    try {
+        // ricavo il percorso del file nel cloud
+        const cloudPath = request.file.path
+
+        // costruisco l'oggetto json con la proprietà cover
+        const dataToUpdate = JSON.stringify({ cover: `${cloudPath}`})
+        const options = { new: true }
+        const result = await PostModel.findByIdAndUpdate(id, dataToUpdate, options)
+
+        response
+            .status(200)
+            .send({
+                statusCode: 200,
+                message: "Post modificato con successo!",
+                result
+            })
+    } catch (error) {
+        response
+            .status(500)
+            .send({
+                statusCode: 500,
+                message: "Errore interno del server!"
+            })
+    }
+})
+
+// deve caricare un'immagine per il post specificato dall'id nella cartella 'uploads'
+blogPosts.patch('/blogPosts/:id/cover/uploads', upload.single('cover'), async (request, response) => {
+    const { id } = request.params  // id del post specifico
+
+    // controlliamo se esite
+    const postExist = await PostModel.findById(id)
+
+    if (!postExist) {
+        return response
+            .status(404)
+            .send({
+                statusCode: 404,
+                message: "Il post cercato non esiste!"
+            })
+    }
+
+    // ricaviamo l'indirizzo url del server
+    const url = `${request.protocol}://${request.get('host')}`
+
+    console.log(request.file)
+
+    try {
+        // prendo l'url dell'immagine caricata
+        const imgUrl = request.file.filename;
+
+        // costruisco l'oggetto json con la proprietà cover
+        const dataToUpdate = JSON.stringify({ cover: `${url}/uploads/${imgUrl}`})
+        const options = { new: true }
+        const result = await PostModel.findByIdAndUpdate(id, dataToUpdate, options)
+
+        response
+            .status(200)
+            .send({
+                statusCode: 200,
+                message: "Post modificato con successo!",
+                result
+            })
+    } catch (error) {
+        response
+            .status(500)
+            .send({
+                statusCode: 500,
+                message: "Errore interno del server!"
+            })
+    }
+})
 
 blogPosts.get('/blogPosts', async (request, response) => {
     const { title } = request.query;
