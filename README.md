@@ -1,12 +1,25 @@
-# Il nostro primo API - Strive Blog - Capitolo 5
+# Strive Blog API - Compito di fine settimana
 
-Il backend include queste nuove routes:
+Gestione degli accessi:
 
-- PATCH /authors/:authorId/avatar, carica un'immagine per l'autore specificato e salva
-  l'URL creata da Cloudinary nel database
+- Aggiungi la Token Based Authentication al tuo progetto precedente
 
-- PATCH /blogPosts/:blogPostId/cover, carica un'immagine per il post specificato dall'Id.
-  Salva l'URL creato da Cloudinary nel post corrispondente
+- Tutti gli endpoint (tranne /login) devono essere accessibili solo
+  tramite token 
 
-- EXTRA: Invia e-mail all'autore quando pubblica un nuovo BlogPost e quando un nuovo
-  autore si registra sulla piattaforma
+- Collega il tuo API al frontend (allegato):
+
+    Crea le pagine di registrazione & login per il progetto 
+
+    - Dopo un login effettuato con successo, memorizza il token di
+      accesso nel localStorage e redireziona l'utente alla homepage
+
+    - Usa il token ovunque sia necessario
+
+- Inserisci gli endpoint che troverai di seguito:
+
+    - GET /login => restituisce token di accesso 
+
+    - GET /me => restituisce l'utente collegato al token di accesso 
+
+    - modifica POST /authors => deve creare un nuovo utente valido

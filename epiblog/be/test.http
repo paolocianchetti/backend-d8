@@ -1,0 +1,63 @@
+GET http://localhost:5050/posts?page=1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzY1MmQ0NWMxNDgyY2JiZjE1MzZkYyIsImZpcnN0TmFtZSI6IlBhb2xvIiwibGFzdE5hbWUiOiJDaWFjayIsImVtYWlsIjoicGFvLmNpYWtAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2OTgwNjYwODAsImV4cCI6MTY5ODMyNTI4MH0.WbDCPn9PoAC0j6AZu624_xFJG1-nPsppF5daKFMKg-Q
+
+####
+POST http://localhost:5050/posts/create HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "POST con referencing",
+  "category": "Categoria uno",
+  "cover": "https://static.vecteezy.com/system/resources/thumbnails/000/192/818/small/T_3-01.jpg",
+  "price": 36,
+  "rate": 5,
+  "author": "653652d45c1482cbbf1536dc"
+}
+
+####
+PATCH http://localhost:5050/posts/update/6515b673381148d20b34c4a0
+Content-Type: application/json
+
+{
+  "title": "Primo post MODIFICATO",
+  "category": "Categoria MODIFICATA",
+  "rate": 546545
+}
+
+####
+DELETE http://localhost:5050/posts/delete/6515b673381148d20b34c4a0
+
+####
+GET http://localhost:5050/posts/bytitle?title=ti
+
+###
+GET http://localhost:5050/posts/bydate/2022-09-28
+
+####
+POST http://localhost:5050/users/create HTTP/1.1
+Content-Type: application/json
+
+{
+  "firstName": "Paolo",
+  "lastName": "Ciack",
+  "email": "pao.ciak@gmail.com",
+  "password": "inveritas555"
+}
+
+####
+POST http://localhost:5050/send-email HTTP/1.1
+Content-Type: application/json
+
+{
+  "subject": "email confidenziale",
+  "text": "Salve questa è una email."
+}
+
+####
+POST http://localhost:5050/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "pao.ciak@gmail.com",
+  "password": "inveritas555"
+}
