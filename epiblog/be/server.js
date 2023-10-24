@@ -11,10 +11,14 @@ const path = require('path')
 require('dotenv').config()
 const PORT = 5050;
 
-
 const app = express();
 
 app.use('/public', express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'))
+})
 
 // middleware parser json
 app.use(cors())
