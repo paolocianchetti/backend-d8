@@ -46,6 +46,12 @@ const Login = () => {
         }
     }
 
+    const redirectForLoginWithGithub = () => {
+        // al clic del bottone di Login With GitHub richiamiamo la prima rotta
+        // che abbiamo definito in login.js nel backend
+        window.location.href = `${process.env.REACT_APP_SERVER_BASE_URL}/auth/github`
+    }
+
     return (
         <div className="p-3 flex justify-center align-items-center h-screen">
            <form
@@ -71,6 +77,11 @@ const Login = () => {
                    className="bg-green-600 p-2 rounded mt-5">
                    Login
                </button>
+               <button
+                    onClick={() => redirectForLoginWithGithub()}
+                    className='bg-blue-600 p-2 rounded mt-3 text-white'>
+                    Login with GitHub
+                </button>
            </form>
         </div>
     );

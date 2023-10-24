@@ -1,25 +1,14 @@
-# Strive Blog API - Compito di fine settimana
+# Strive Blog API
 
-Gestione degli accessi:
+# Gestione degli accessi
 
-- Aggiungi la Token Based Authentication al tuo progetto precedente
+- E' ora di aggiungere OAuth al progetto Strive Blog.
 
-- Tutti gli endpoint (tranne /login) devono essere accessibili solo
-  tramite token 
+- Usa la giusta Passport Strategy per connettere GitHub al
+  backend
 
-- Collega il tuo API al frontend (allegato):
+- Abilita il login con GitHub nella tua applicazione, creando gli endpoint necessari
 
-    Crea le pagine di registrazione & login per il progetto 
+- Integra ovunque lo standard JWT
 
-    - Dopo un login effettuato con successo, memorizza il token di
-      accesso nel localStorage e redireziona l'utente alla homepage
-
-    - Usa il token ovunque sia necessario
-
-- Inserisci gli endpoint che troverai di seguito:
-
-    - GET /login => restituisce token di accesso 
-
-    - GET /me => restituisce l'utente collegato al token di accesso 
-
-    - modifica POST /authors => deve creare un nuovo utente valido
+- Extra: Aggiungi il pulsante con il Login con GitHub nella tua applicazione

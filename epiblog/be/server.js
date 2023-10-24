@@ -5,6 +5,7 @@ const postsRoute = require('./routes/posts')
 const usersRoute = require('./routes/users')
 const emailRoute = require('./routes/sendEmail')
 const loginRoute = require('./routes/login')
+const githubRoute = require('./routes/github')
 const cors = require('cors')
 const path = require('path')
 require('dotenv').config()
@@ -25,6 +26,7 @@ app.use('/', postsRoute)
 app.use('/', usersRoute)
 app.use('/', emailRoute)
 app.use('/', loginRoute)
+app.use('/', githubRoute)
 
 mongoose.connect(process.env.MONGODB_URL, {
     useNewUrlParser: true,
